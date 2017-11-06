@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MODx Revolution Ajax Filter</title>
+</head>
+<body>
+
+	<!-- Пример формы фильтра -->
+	<form class="ajax-form">
+
+		<!-- Sort Fields -->
+		<input type="hidden" name="sortby" value="pagetitle">
+		<input type="hidden" name="sortdir" value="asc">
+		<!-- Sort End -->
+
+		<label>
+			<input type="checkbox" name="garage"> Checkbox
+		</label>
+
+		<label>
+			<input name="floor" value="0" checked="" type="radio">
+			<input name="floor" value="1" type="radio">
+			<input name="floor" value="2" type="radio">
+		</label>
+
+		<label><input type="text" name="price"></label>
+
+	</form>
+
+	<!-- Пример создания кнопок сортировки -->
+	Сортировать по цене: <button data-sort-by="price">По возрастанию</button>
+
+	<!-- Вывод сниппета в шаблоне категории -->
+	<div class="ajax-container">
+		[[!catalogFilter?
+		&tpl=`tplCatItem`
+		&limit=`3`
+		&parents=`5`
+		&fields=`image,area,floor,garage,price`]]
+	</div>
+
+	<p>Пример чанка <strong>tplCatItem</strong></p>
+
+	<div class="ajax-item">
+		<img src="[[+tv.image]]" alt="[[+pagetitle]]">
+		<h4>[[+pagetitle]]</h4>
+		<table>
+			<tr>
+				<td>Этаж</td>
+				<td>[[+tv.floor]]</td>
+			</tr>
+			[[+tv.area:isnot=``:then=`
+			<tr>
+				<td>Площадь</td>
+				<td>[[+tv.area]] кв.м.</td>
+			</tr>
+			`]]
+			<tr>
+				<td>Гараж</td>
+				<td>[[+tv.garage:is=`1`:then=`Есть`:else=`Нет`]]</td>
+			</tr>
+			<tr>
+				<td>Цена:</td>
+				<td>[[+tv.price]]</td>
+			</tr>
+		</table> 
+	</div>
+
+	<!-- Пример подключения скрипта -->
+	<script src="script.js"></script>
+	
+</body>
+</html>
