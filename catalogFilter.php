@@ -1,4 +1,5 @@
 <?php
+
 //Filter Fields Settings
 $filter = array();
 
